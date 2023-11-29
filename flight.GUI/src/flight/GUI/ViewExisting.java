@@ -24,7 +24,7 @@ public class ViewExisting extends JPanel {
 		setLayout(null);
 		
 		JButton returnButton = new JButton("Return");
-		returnButton.setBounds(0, 271, 450, 29);
+		returnButton.setBounds(6, 187, 450, 29);
 		add(returnButton);
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
@@ -34,7 +34,7 @@ public class ViewExisting extends JPanel {
 		});
 		
 		table = new JTable();
-		table.setBounds(27, 43, 397, 226);
+		table.setBounds(27, 43, 397, 132);
 		add(table);
 		
 		JButton btnNewButton = new JButton("Sign off");
