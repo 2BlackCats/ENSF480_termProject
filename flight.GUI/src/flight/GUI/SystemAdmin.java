@@ -1,6 +1,8 @@
 package flight.GUI;
 
 import java.awt.EventQueue;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,7 +11,7 @@ import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.JButton;
-import entity.Airline;
+import entity.*;
 
 public class SystemAdmin extends JPanel{
 
@@ -27,6 +29,12 @@ public class SystemAdmin extends JPanel{
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane);
 		
+		ArrayList<Flight> flightList = Airline.getAirline().getListOfFlights();
+		//String[][]
+		for (int i = 0; i < flightList.size(); i++) {
+			
+		}
+		
 		table = new JTable();
 		tabbedPane.addTab("Flights", null, table, null);
 		
@@ -39,4 +47,8 @@ public class SystemAdmin extends JPanel{
 		btnNewButton = new JButton("Log Off");
 		add(btnNewButton, BorderLayout.SOUTH);
 	}
+
+	
+	
+	
 }
