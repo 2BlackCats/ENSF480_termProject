@@ -13,8 +13,9 @@ public class ReadDB {
 
 	private ResultSet results;
 	private Connection dbConnect;
-	
+
 	public ReadDB () {
+
 		createConnection();
 		try {
 			loadFromDB();
@@ -25,11 +26,11 @@ public class ReadDB {
 		}
 		closeConnection();
 	}
-	
+
 	public Airline filledAirline() {
 		return Airline.getAirline();
 	}
-	
+
 	public void createConnection() {
 		try {
 			dbConnect = DriverManager.getConnection("jdbc:mysql://localhost:3306/air_travel", "root", "");
@@ -39,7 +40,7 @@ public class ReadDB {
             e.printStackTrace();
 		}
 	}
-	
+
 	public void closeConnection() {
         try {
             results.close();
@@ -49,13 +50,16 @@ public class ReadDB {
             e.printStackTrace();
         }
 	}
-	
+
 	public void loadFromDB() throws SQLException {
 		populateUsers();
 		populateAircrafts();
 		populateFlights();
+		for (Aircraft craft : filledAirline().getListOfAircrafts()){
+			populateSeats(craft.getID());
+		}
 	}
-	
+
 	public void populateUsers() throws SQLException {
 		Statement st = dbConnect.createStatement();
 		String query = "SELECT * FROM air_travel.login;";
@@ -64,56 +68,69 @@ public class ReadDB {
 			
 			if (results.getString("Type").compareTo("Member") == 0) {
 				
-				Airline.getAirline().addUser(results.getString("Username"), results.getString("Password"), results.getString("Email"), results.getString("Type"));
+				filledAirline().addUser(results.getString("Username"), results.getString("Password"), results.getString("Email"), results.getString("Type"));
 			}
 			else if (results.getString("Type").compareTo("Agent") == 0) {
 				
-				Airline.getAirline().addAgent(results.getString("Username"), results.getString("Password"), results.getString("Email"), results.getString("Type"));
+				filledAirline().addAgent(results.getString("Username"), results.getString("Password"), results.getString("Email"), results.getString("Type"));
 			}
 			else if (results.getString("Type").compareTo("Admin") == 0) {
 				
-				Airline.getAirline().addAdmin(results.getString("Username"), results.getString("Password"), results.getString("Email"), results.getString("Type"));
+				filledAirline().addAdmin(results.getString("Username"), results.getString("Password"), results.getString("Email"), results.getString("Type"));
 			}
 		}
 		
 	}
-	
+
 	public void populateAircrafts() throws SQLException {
 		Statement st = dbConnect.createStatement();
 		String query = "select * from Aircrafts";
 		results = st.executeQuery(query);
 		while (results.next()) {
-			Airline.getAirline().addAircraft(results.getString("Size"), results.getInt("ID"));
-			
+			filledAirline().addAircraft(results.getString("Size"), results.getInt("ID"));
+
 		}
-		
+
 	}
-	
+
 	public void populateFlights() throws SQLException {
 		Statement st = dbConnect.createStatement();
 		String query = "select * from Flight";
 		results = st.executeQuery(query);
 
 		while(results.next()){
-			for(int i =0; i < Airline.getAirline().getListOfAircrafts().size(); i++){
-				Airline.getAirline().addFlight(results.getInt("ID"),results.getString("Destination"), results.getTimestamp("Time").toLocalDateTime(), Airline.getAirline().getListOfAircrafts().get(i));
-			}
-			
-		}
-		
-	}
-	
-	public void populateSeats(int AircraftID) throws SQLException {
-		Statement st = dbConnect.createStatement();
-		String query = "select * from Seats";
-		results = st.executeQuery(query);
+			for(int i =0; i < filledAirline().getListOfAircrafts().size(); i++){
+				if (filledAirline().getListOfAircrafts().get(i).getID() == results.getInt("Aircraft_ID")) {
+					filledAirline().addFlight(results.getInt("ID"),results.getString("Destination"), results.getTimestamp("Time").toLocalDateTime(), Airline.getAirline().getListOfAircrafts().get(i));
+					break;
+				}
 
-		while(results.next()){
-		
+			}
+
 		}
-		
-		
+
 	}
-	
-	
+
+	public void populateSeats(int AircraftID) throws SQLException {
+		for(int i =0; i < filledAirline().getListOfAircrafts().size(); i++){
+
+			if(filledAirline().getListOfAircrafts().get(i).getID() == AircraftID){
+
+				Statement st = dbConnect.createStatement();
+				String query = "select * from Seats where 'Passenger_name' != null AND Aircraft_ID = " + String.valueOf(AircraftID);		
+				results = st.executeQuery(query);
+
+				while(results.next()){
+					String customer = results.getString("Passenger_Name");
+					for(User checkUser : filledAirline().getListOfUsers()) {
+						if (checkUser.getUsername() == customer) {
+							filledAirline().getListOfAircrafts().get(i).reserveSeat(results.getInt("Seat_Row"), results.getInt("Seat_Column"), checkUser);
+						}
+					}
+				}
+			}	
+		}
+	}
+
+
 }
