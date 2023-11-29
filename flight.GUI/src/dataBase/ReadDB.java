@@ -84,7 +84,7 @@ public class ReadDB {
 
 	public void populateAircrafts() throws SQLException {
 		Statement st = dbConnect.createStatement();
-		String query = "select * from Aircrafts";
+		String query = "select * from air_travel.aircrafts";
 		results = st.executeQuery(query);
 		while (results.next()) {
 			filledAirline().addAircraft(results.getString("Size"), results.getInt("ID"));
@@ -95,16 +95,16 @@ public class ReadDB {
 
 	public void populateFlights() throws SQLException {
 		Statement st = dbConnect.createStatement();
-		String query = "select * from Flight";
+		String query = "select * from air_travel.Flight";
 		results = st.executeQuery(query);
-
+		
 		while(results.next()){
+
 			for(int i =0; i < filledAirline().getListOfAircrafts().size(); i++){
 				if (filledAirline().getListOfAircrafts().get(i).getID() == results.getInt("Aircraft_ID")) {
 					filledAirline().addFlight(results.getInt("ID"),results.getString("Destination"), results.getTimestamp("Time").toLocalDateTime(), Airline.getAirline().getListOfAircrafts().get(i));
 					break;
 				}
-
 			}
 
 		}

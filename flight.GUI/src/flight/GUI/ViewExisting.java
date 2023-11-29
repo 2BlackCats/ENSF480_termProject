@@ -1,5 +1,4 @@
 package flight.GUI;
-
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -17,13 +16,16 @@ public class ViewExisting extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	
+	
 	public ViewExisting(JFrame main, String user, Airline al) {
 		this.main = main;
 		this.user = user;
-		setLayout(new BorderLayout(0, 0));
+		setLayout(null);
 		
 		JButton returnButton = new JButton("Return");
-		add(returnButton, BorderLayout.SOUTH);
+		returnButton.setBounds(0, 271, 450, 29);
+		add(returnButton);
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
 				main.setContentPane(new Login(main, al));
@@ -32,7 +34,17 @@ public class ViewExisting extends JPanel {
 		});
 		
 		table = new JTable();
-		add(table, BorderLayout.CENTER);
+		table.setBounds(27, 43, 397, 226);
+		add(table);
+		
+		JButton btnNewButton = new JButton("Sign off");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Figure out the seat and name relation
+			}
+		});
+		btnNewButton.setBounds(327, 6, 117, 29);
+		add(btnNewButton);
 		
 	}
 

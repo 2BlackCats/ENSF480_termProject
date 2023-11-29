@@ -65,7 +65,7 @@ public class Flight {
 	}
 	
 	public boolean flightHappened() {
-		if (flightDate.isAfter(LocalDateTime.now(ZoneId.of("MST")))) {
+		if (flightDate.isAfter(LocalDateTime.now(ZoneId.of("GMT")))) {
 			return true;
 		}
 		return false;

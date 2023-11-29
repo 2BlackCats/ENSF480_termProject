@@ -28,7 +28,6 @@ public class Airline {
 	}
 	
 	public User verifyUser(String Username, String Password) {
-		System.out.println(listOfUsers.size());
 		for (int i = 0; i < listOfUsers.size(); i++) {
 			System.out.println(listOfUsers.get(i).getUsername() + "/" + listOfUsers.get(i).getPassword());
 			if(listOfUsers.get(i).getUsername().compareTo(Username) == 0 && listOfUsers.get(i).getPassword().compareTo(Password) == 0) {
@@ -55,6 +54,8 @@ public class Airline {
 		}
 		return null;
 	}
+	
+	
 	
 	public ArrayList<User> getListOfUsers(){
 		return listOfUsers;
@@ -108,16 +109,18 @@ public class Airline {
 	}
 	
 	public void addAircraft(String size, int id) {
-		if (size == "Large") {
+		if (size.equals("Large")) {
 			listOfAircrafts.add(new LargeAircraft(id));
 		}
-		else if (size == "Medium") {
+		else if (size.equals("Medium")) {
 			listOfAircrafts.add(new MediumAircraft(id));
 		}
-		else if (size == "Small") {
+		else if (size.equals("Small")) {
 			listOfAircrafts.add(new SmallAircraft(id));
 		}
 	}
+	
+	
 	
 	public void cancelFlight(Flight cancelledFlight) {
 		Seat[][] seatMap = cancelledFlight.getPlane().getSeatMap();
@@ -131,4 +134,18 @@ public class Airline {
 		}
 		cancelledFlight.getPlane().changeUsed();
 	}
+	
+	public ArrayList<Flight> findFlights(String destination){
+	    ArrayList<Flight> matchingFlights = new ArrayList<Flight>();
+	
+		for (int i = 0; i < listOfFlights.size(); i++) {
+			if (listOfFlights.get(i).getDestination().equals(destination) ) {
+				matchingFlights.add(listOfFlights.get(i));
+			}
+		}
+		return matchingFlights;
+		
+	}
 }
+
+

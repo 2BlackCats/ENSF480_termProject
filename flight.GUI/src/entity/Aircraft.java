@@ -7,6 +7,7 @@ public abstract class Aircraft {
 	protected Seat[][] seatMap;
 	
 	public Seat[][] getSeatMap(){
+		System.out.println("aa");
 		return seatMap;
 	}
 	
@@ -18,9 +19,7 @@ public abstract class Aircraft {
 		return size;
 	}
 	
-	public void reserveSeat(int row, int column, User customer) {
-		seatMap[row][column].reserveSeat(customer);
-	}
+ 
 	
 	public boolean used() {
 		return used;
