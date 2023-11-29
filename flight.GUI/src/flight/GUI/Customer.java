@@ -58,6 +58,12 @@ public class Customer extends JPanel{
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 1;
 		add(btnNewButton, gbc_btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent E) {
+				main.setContentPane(new ViewExisting(main,user,al));
+				main.revalidate();
+			}	});
+		
 		
 		JButton btnNewButton_1 = new JButton("Book New Reservation");
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
@@ -65,6 +71,13 @@ public class Customer extends JPanel{
 		gbc_btnNewButton_1.gridx = 3;
 		gbc_btnNewButton_1.gridy = 1;
 		add(btnNewButton_1, gbc_btnNewButton_1);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent E) {
+				main.setContentPane(new BookNew(main,user));
+				main.revalidate();
+			}
+		});
+		
 		
 		JButton logOffButton = new JButton("Log Off");
 		GridBagConstraints gbc_logOffButton = new GridBagConstraints();
