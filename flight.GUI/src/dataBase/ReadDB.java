@@ -124,7 +124,7 @@ public class ReadDB {
 					String customer = results.getString("Passenger_Name");
 					for(User checkUser : filledAirline().getListOfUsers()) {
 						if (checkUser.getUsername() == customer) {
-							filledAirline().getListOfAircrafts().get(i).reserveSeat(results.getInt("Seat_Row"), results.getInt("Seat_Column"), checkUser);
+							filledAirline().getListOfAircrafts().get(i).getSeatMap()[results.getInt("Seat_Row")-1][results.getInt("Seat_Column")-1].reserveSeat( checkUser);
 						}
 					}
 				}
