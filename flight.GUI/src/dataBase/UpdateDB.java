@@ -13,12 +13,11 @@ import entity.Seat;
 
 public class UpdateDB {
 
-	private Airline al;
 	private ResultSet results;
 	private Connection dbConnect;
 
 	public UpdateDB () {
-		al = Airline.getAirline();
+
 		createConnection();
 		try {
 			update();
@@ -29,6 +28,10 @@ public class UpdateDB {
 		}
 		closeConnection();
 
+	}
+
+	public Airline filledAirline() {
+		return Airline.getAirline();
 	}
 
 	public void createConnection() {
@@ -63,13 +66,13 @@ public class UpdateDB {
 		Statement st = dbConnect.createStatement();
 		st.executeUpdate(update);
 
-		for (int i =0; i < al.getListOfUsers().size(); i++){
+		for (int i =0; i < filledAirline().getListOfUsers().size(); i++){
 			String query = "insert into login (Username, Password, Email, Type)";
 			PreparedStatement ps = dbConnect.prepareStatement(query);
-			ps.setString(1, al.getListOfUsers().get(i).getUsername());
-			ps.setString(2, al.getListOfUsers().get(i).getPassword());
-			ps.setString(3, al.getListOfUsers().get(i).getEmail());
-			ps.setString(4, al.getListOfUsers().get(i).getPriviledge());
+			ps.setString(1, filledAirline().getListOfUsers().get(i).getUsername());
+			ps.setString(2, filledAirline().getListOfUsers().get(i).getPassword());
+			ps.setString(3, filledAirline().getListOfUsers().get(i).getEmail());
+			ps.setString(4, filledAirline().getListOfUsers().get(i).getPriviledge());
 
 		}		
 
@@ -80,13 +83,13 @@ public class UpdateDB {
 		Statement st = dbConnect.createStatement();
 		st.executeUpdate(update);
 
-		for (int i =0; i < al.getListOfFlights().size(); i++){
+		for (int i =0; i < filledAirline().getListOfFlights().size(); i++){
 			String query = "insert into flight (ID, Destination, Date)";
 			PreparedStatement ps = dbConnect.prepareStatement(query);
-			ps.setInt(1, al.getListOfFlights().get(i).getID());
-			ps.setString(2, al.getListOfFlights().get(i).getDestination());
-			ps.setObject(3, al.getListOfFlights().get(i).getFlightDate());
-			ps.setInt(4,al.getListOfAircrafts().get(i).getID());
+			ps.setInt(1, filledAirline().getListOfFlights().get(i).getID());
+			ps.setString(2, filledAirline().getListOfFlights().get(i).getDestination());
+			ps.setObject(3, filledAirline().getListOfFlights().get(i).getFlightDate());
+			ps.setInt(4,filledAirline().getListOfAircrafts().get(i).getID());
 		}
 
 
@@ -97,27 +100,27 @@ public class UpdateDB {
 		Statement st = dbConnect.createStatement();
 		st.executeUpdate(update);
 
-		for (int i =0; i < al.getListOfAircrafts().size(); i++){
+		for (int i =0; i < filledAirline().getListOfAircrafts().size(); i++){
 			String query = "insert into Aircrafts (ID, size)";
 			PreparedStatement ps = dbConnect.prepareStatement(query);
-			ps.setInt(1, al.getListOfAircrafts().get(i).getID());
-			ps.setString(2, al.getListOfAircrafts().get(i).getSize());
+			ps.setInt(1, filledAirline().getListOfAircrafts().get(i).getID());
+			ps.setString(2, filledAirline().getListOfAircrafts().get(i).getSize());
 		}
 
 
 	}
 
 	public void updateSeats() throws SQLException{
-		int craftCount = al.getListOfAircrafts().size();
+		int craftCount = filledAirline().getListOfAircrafts().size();
 		for (int i = 0; i < craftCount; i++){
-			Seat[][] currSeatMap = al.getListOfAircrafts().get(i).getSeatMap();
-			if (al.getListOfAircrafts().get(i).used() == true){
+			Seat[][] currSeatMap = filledAirline().getListOfAircrafts().get(i).getSeatMap();
+			if (filledAirline().getListOfAircrafts().get(i).used() == true){
 				//update
 				for (Seat[] seatRow : currSeatMap) {
 					for (Seat curSeat: seatRow) {
 						if (curSeat.reservedSeat()) {
 							String seatPassengerName = curSeat.reservedFor().getUsername();
-							String update = "UPDATE Seats SET Passenger_Name = '" + seatPassengerName + "' WHERE Aircraft_ID = " + al.getListOfAircrafts().get(i).getID();
+							String update = "UPDATE Seats SET Passenger_Name = '" + seatPassengerName + "' WHERE Aircraft_ID = " + filledAirline().getListOfAircrafts().get(i).getID();
 							Statement st= dbConnect.createStatement();
 							st.executeUpdate(update);
 						}
