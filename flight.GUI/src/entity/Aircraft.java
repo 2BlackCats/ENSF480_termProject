@@ -7,7 +7,6 @@ public abstract class Aircraft {
 	protected Seat[][] seatMap;
 	
 	public Seat[][] getSeatMap(){
-		System.out.println("aa");
 		return seatMap;
 	}
 	

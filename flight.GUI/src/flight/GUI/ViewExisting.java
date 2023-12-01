@@ -1,13 +1,16 @@
 package flight.GUI;
 import javax.swing.JPanel;
+import entity.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import entity.Airline;
+
 public class ViewExisting extends JPanel {
 	private JFrame main;
 	private JTable table;
@@ -16,7 +19,33 @@ public class ViewExisting extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	
+	 
+	public String[][] seatCurrent(String user){
+		  ArrayList<Flight> flightList = Airline.getAirline().getListOfFlights();
+		  String [][] flightDetails = new String[flightList.size()][4];
+		  for (int i = 0; i < flightList.size(); i++) {
+			  if (flightList.get(i).getPlane().getSeatMap() != null) {
+				  Seat [][] seatList = flightList.get(i).getPlane().getSeatMap();
+				  for (int k = 0; k < seatList.length; k++) {
+					  for (int j = 0; j < seatList[k].length; j++) {
+						  if(seatList[k][j].reservedFor()!= null) { 
+							 if(seatList[k][j].reservedFor().getUsername().equals(user)) {
+								  flightDetails[i][0] = user;
+								  flightDetails[i][1] = Integer.toString(flightList.get(i).getID());
+								  flightDetails[i][2] = flightList.get(i).getDestination();
+								  flightDetails[i][3] = flightList.get(i).getFlightDate().format(DateTimeFormatter.BASIC_ISO_DATE);
+						  			}
+						  
+					  			}
+					  		}
+			  
+			  			}
+			  }
+
+		  }
+		  return flightDetails;
+		
+	}
 	
 	public ViewExisting(JFrame main, String user, Airline al) {
 		this.main = main;
@@ -33,14 +62,20 @@ public class ViewExisting extends JPanel {
 			}
 		});
 		
-		table = new JTable();
+		String[][] flightDetails = seatCurrent(user);
+		String[] Titles= {"ID","Destination","Local Date","Select"};
+		table = new JTable(flightDetails,Titles);
 		table.setBounds(27, 43, 397, 132);
 		add(table);
+		
+		
+		
+		
 		
 		JButton btnNewButton = new JButton("Sign off");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Figure out the seat and name relation
+			
 			}
 		});
 		btnNewButton.setBounds(327, 6, 117, 29);
