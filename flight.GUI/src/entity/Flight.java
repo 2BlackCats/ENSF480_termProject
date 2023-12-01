@@ -8,23 +8,25 @@ import java.util.Date;
 
 public class Flight {
 	private int ID;
+	private String origin;
 	private String destination;
 	private LocalDateTime flightDate;
 	private Aircraft plane;
 	
-	private Flight (int ID, String destination, LocalDateTime local, Aircraft plane) throws
+	private Flight (int ID, String origin, String destination, LocalDateTime local, Aircraft plane) throws
 	DateTimeException {
 			this.ID = ID;
+			this.origin = origin;
 			this.destination = destination;
 			this.flightDate = local;
 			this.plane = plane;
 			plane.changeUsed();
 	}
 	
-	static public Flight flightMaker(int id, String destination, LocalDateTime local, Aircraft plane) {
+	static public Flight flightMaker(int id, String origin, String destination, LocalDateTime local, Aircraft plane) {
 		Flight f;
 		try {
-			f = new Flight(id,destination, local, plane);
+			f = new Flight(id, origin, destination, local, plane);
 		}
 		catch (Exception DateTimeException) {
 			return null;
@@ -46,6 +48,14 @@ public class Flight {
 	
 	public void setDestination(String dest) {
 		this.destination = dest;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+	
+	public void setOrigin(String origin) {
+		this.origin = origin;
 	}
 	
 	public LocalDateTime getFlightDate() {

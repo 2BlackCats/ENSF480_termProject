@@ -84,9 +84,10 @@ public class UpdateDB {
 		st.executeUpdate(update);
 
 		for (int i =0; i < filledAirline().getListOfFlights().size(); i++){
-			String query = "insert into flight (ID, Destination, Date)";
+			String query = "insert into flight (ID, Origin, Destination, Date, Aircraft_ID)";
 			PreparedStatement ps = dbConnect.prepareStatement(query);
 			ps.setInt(1, filledAirline().getListOfFlights().get(i).getID());
+			ps.setString(2, filledAirline().getListOfFlights().get(i).getOrigin());
 			ps.setString(2, filledAirline().getListOfFlights().get(i).getDestination());
 			ps.setObject(3, filledAirline().getListOfFlights().get(i).getFlightDate());
 			ps.setInt(4,filledAirline().getListOfAircrafts().get(i).getID());

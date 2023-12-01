@@ -98,8 +98,8 @@ public class Airline {
 		listOfAdmins.add(admin);
 	}
 	
-	public boolean addFlight(int id, String destination, LocalDateTime local, Aircraft plane) {
-		Flight newFlight = Flight.flightMaker(id, destination, local, plane);
+	public boolean addFlight(int id, String origin, String destination, LocalDateTime local, Aircraft plane) {
+		Flight newFlight = Flight.flightMaker(id, origin, destination, local, plane);
 		if (newFlight == null) {
 			return false;
 		}
