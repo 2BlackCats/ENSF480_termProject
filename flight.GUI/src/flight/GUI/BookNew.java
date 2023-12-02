@@ -12,9 +12,8 @@ import javax.swing.JFrame;
 
 import javax.swing.JTextField;
 
-import entity.Airline;
-import entity.Flight;
-import entity.Seat;
+
+import entity.*;
 
 import javax.swing.JButton;
 
@@ -22,15 +21,41 @@ public class BookNew extends JPanel {
 	private JTextField search;
 	private JTable table;
 	private JTextField textField_1;
+	private JButton btnNewButton_1;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * 
 	 */
-	
-	//ArrayList<Flight> allFlight = Air
-	
+
+	public Aircraft findAirCraft(String ID){
+		  ArrayList<Aircraft> aircraftList = Airline.getAirline().getListOfAircrafts();
+		  ArrayList<Flight> flightList = Airline.getAirline().getListOfFlights();
+		  Integer aircraftID = 0;
+		  for (int i = 0; i < flightList.size(); i++) {
+			  
+			  if(Integer.toString(flightList.get(i).getID()).equals(ID)) {
+				   aircraftID = flightList.get(i).getPlane().getID();  
+			  }}
+		  
+		
+		  for (int i = 0; i < aircraftList.size(); i++) {
+			  if(aircraftList.get(i).getID()==(aircraftID)) {
+				  Aircraft airplane = aircraftList.get(i);
+				  return airplane ;
+				  
+			  }
+			  
+		  }
+		  return null;
+		
+		  
+		  
+		}
+	    
+
+
 	public String[][] flightArrayToString(ArrayList<Flight> array){
 		String[][] stringArray = new String[array.size()][4];
 		for (int i = 0; i < array.size(); i++) {
@@ -43,45 +68,44 @@ public class BookNew extends JPanel {
 
 	}
 	
-	public BookNew(JFrame main, String user) {
+	public BookNew(JFrame main, String user,  Airline al) {
 		setLayout(null);
 		
 		search = new JTextField();
-		search.setBounds(257, 4, 130, 35);
+		search.setBounds(314, 6, 130, 35);
 		add(search);
 		search.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Search Flights");
-		btnNewButton.setBounds(257, 51, 129, 25);
+		btnNewButton.setBounds(314, 53, 129, 25);
 		add(btnNewButton);
-		
-		//String[][] listFlight= flightArrayToString(Airline.getAirline().getListOfFlights());
-	
-		String[] Titles= {"ID","Destination","Local Date","Select"};
-		//JTable display = new JTable();
-	//	display.setBounds(22, 6, 223, 273);
-//		add(display);
-//	
+
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(257, 79, 130, 35);
+		textField_1.setBounds(314, 79, 130, 35);
 		add(textField_1);
 		textField_1.setColumns(10);
 		
 		JButton btnNewButton1 = new JButton("Select Flight");
-		btnNewButton1.setBounds(256, 126, 130, 35);
+		btnNewButton1.setBounds(314, 126, 130, 25);
 		add(btnNewButton1);
+		
+		btnNewButton_1 = new JButton("Sign out");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.setContentPane(new Login(main, al));
+				main.revalidate();
+			}
+		});
+		btnNewButton_1.setBounds(314, 163, 130, 25);
+		add(btnNewButton_1);
 		
 		btnNewButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
 				String ID = textField_1.getText();
-//				Seat[][] seatMap = .getPlane().getSeatMap();
-//				for (int i = 0; i < seatMap.length; i++) {
-//					for (int j = 0; j < seatMap[i].length; j++) {
-//						if (seatMap[i][j] != null) 
-
-			
-				
+				Aircraft airplane = findAirCraft(ID);
+				main.setContentPane(new Payment(main ,user,airplane,ID,al));
+				main.revalidate();
 				
 			}
 			
@@ -92,11 +116,12 @@ public class BookNew extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
 				String destination = search.getText();
-				
+				String[] Titles= {"ID","Destination","Local Date","Select"};
 				String[][] listSearchedFlight= flightArrayToString(Airline.getAirline().findFlights(destination));
 				JTable display = new JTable(listSearchedFlight,Titles);      
 				display.setBounds(22, 6, 223, 273);
 				add(display);
+				display.setEnabled(false);
 				main.revalidate();
 				
 				

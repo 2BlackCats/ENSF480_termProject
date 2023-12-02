@@ -29,7 +29,6 @@ public class Airline {
 	
 	public User verifyUser(String Username, String Password) {
 		for (int i = 0; i < listOfUsers.size(); i++) {
-			System.out.println(listOfUsers.get(i).getUsername() + "/" + listOfUsers.get(i).getPassword());
 			if(listOfUsers.get(i).getUsername().compareTo(Username) == 0 && listOfUsers.get(i).getPassword().compareTo(Password) == 0) {
 				return listOfUsers.get(i);
 			}

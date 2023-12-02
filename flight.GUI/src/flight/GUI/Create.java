@@ -105,6 +105,13 @@ public class Create extends JPanel{
 		add(btnNewButton_1, gbc_btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
+				String userName = usernameField.getText();
+				String passWord =new String(passwordField.getPassword());
+				String eMail = emailField.getText();
+				String priviledge = "User";
+				if (Airline.getAirline().verifyUser(userName, passWord) == null) {
+					Airline.getAirline().addUser( userName, passWord, eMail, priviledge);
+				}
 				main.setContentPane(new Login(main, al));
 				main.revalidate();
 			}

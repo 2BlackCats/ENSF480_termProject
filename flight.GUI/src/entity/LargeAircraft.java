@@ -11,7 +11,7 @@ public class LargeAircraft extends Aircraft{
 				if (i == 0) {
 					seatMap[i][j] = new Seat("First");
 				}
-				else if (i == 1 || i == 2) {
+				else if (i == 1 ) {
 					seatMap[i][j] = new Seat("Business");
 				}
 				else {
