@@ -118,7 +118,7 @@ public class Login extends JPanel{
 					main.setContentPane(new Customer(main, usernameField.getText(), al));
 					main.revalidate();
 				}
-				else if(userT.equals("Attendant") && al.verifyAgent(username, password) != null) {
+				else if(userT.equals("Airline Agent") && al.verifyAgent(username, password) != null) {
 					main.setContentPane(new FlightAttendent(main, usernameField.getText(), al));
 					main.revalidate();
 				}

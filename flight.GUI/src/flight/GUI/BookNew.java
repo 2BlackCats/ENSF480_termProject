@@ -21,6 +21,7 @@ public class BookNew extends JPanel {
 	private JTextField search;
 	private JTable table;
 	private JTextField textField_1;
+	private JButton btnNewButton_1;
 
 	/**
 	 * Create the panel.
@@ -67,7 +68,7 @@ public class BookNew extends JPanel {
 
 	}
 	
-	public BookNew(JFrame main, String user) {
+	public BookNew(JFrame main, String user,  Airline al) {
 		setLayout(null);
 		
 		search = new JTextField();
@@ -95,11 +96,15 @@ public class BookNew extends JPanel {
 		btnNewButton1.setBounds(314, 126, 130, 25);
 		add(btnNewButton1);
 		
+		btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setBounds(314, 163, 130, 25);
+		add(btnNewButton_1);
+		
 		btnNewButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
 				String ID = textField_1.getText();
 				Aircraft airplane = findAirCraft(ID);
-				main.setContentPane(new Payment(main ,user,airplane,ID));
+				main.setContentPane(new Payment(main ,user,airplane,ID,al));
 				main.revalidate();
 				
 			}

@@ -28,24 +28,23 @@ public class ViewExisting extends JPanel {
 				  Seat [][] seatList = flightList.get(i).getPlane().getSeatMap();
 				  for (int k = 0; k < seatList.length; k++) {
 					  for (int j = 0; j < seatList[k].length; j++) {
-						  if(seatList[k][j].reservedFor()!= null) { 
-							 if(seatList[k][j].reservedFor().getUsername().equals(user)) {
+						  if(seatList[k][j].reservedFor() != null) {
+						  if(seatList[k][j].reservedFor().getUsername().equals(user)) {
 								  flightDetails[i][0] = user;
 								  flightDetails[i][1] = Integer.toString(flightList.get(i).getID());
 								  flightDetails[i][2] = flightList.get(i).getDestination();
 								  flightDetails[i][3] = flightList.get(i).getFlightDate().format(DateTimeFormatter.BASIC_ISO_DATE);
-						  			}
-						  
+						  			}}
+					  }
 					  			}
 					  		}
 			  
 			  			}
+		  return flightDetails;
 			  }
 
-		  }
-		  return flightDetails;
-		
-	}
+		  
+		  
 	
 	public ViewExisting(JFrame main, String user, Airline al) {
 		this.main = main;
@@ -53,7 +52,7 @@ public class ViewExisting extends JPanel {
 		setLayout(null);
 		
 		JButton returnButton = new JButton("Return");
-		returnButton.setBounds(6, 187, 450, 29);
+		returnButton.setBounds(6, 126, 342, 29);
 		add(returnButton);
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
@@ -65,22 +64,14 @@ public class ViewExisting extends JPanel {
 		String[][] flightDetails = seatCurrent(user);
 		String[] Titles= {"ID","Destination","Local Date","Select"};
 		table = new JTable(flightDetails,Titles);
-		table.setBounds(27, 43, 397, 132);
+		table.setBounds(6, 17, 396, 97);
 		add(table);
 		
 		
 		
 		
 		
-		JButton btnNewButton = new JButton("Sign off");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		btnNewButton.setBounds(327, 6, 117, 29);
-		add(btnNewButton);
-		
+
 	}
 
 }

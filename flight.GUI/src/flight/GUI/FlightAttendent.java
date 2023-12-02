@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -34,24 +35,25 @@ public class FlightAttendent extends JPanel{
 	/**
 	 * Create the application.
 	 */
-	
-	public String[][] seatDisplay(String ID) {
-		String availabilty;
-		ArrayList<Flight> flightList = Airline.getAirline().getListOfFlights();
-		for (int i = 0; i < flightList.size(); i++) {
-			if(Integer.toString(flightList.get(i).getID()).equals(ID)) {
-				Seat[][] seatList = flightList.get(i).getPlane().getSeatMap();
-				String[][] seatDisplay = new String[seatList.length][2];
-				for (int k = 0; k < seatList.length; k++) {
-					for (int j = 0; j < seatList[k].length; j++) {
-						seatDisplay[k][0] = ((char)(i+65) + Integer.toString(j));
-						seatDisplay[k][1] = seatList[i][j].reservedFor().getUsername();	
-					}
-				}
-				return seatDisplay;
-			}
-		}
-		return null;
+	public String[][] seatDisplay(String ID){
+		  ArrayList<Flight> flightList = Airline.getAirline().getListOfFlights();
+		  String [][] flightDetails = new String[flightList.size()][2];
+		  for (int i = 0; i < flightList.size() && (Integer.toString(flightList.get(i).getID()).equals(ID)); i++) {
+			  if (flightList.get(i).getPlane().getSeatMap() != null) {
+				  Seat [][] seatList = flightList.get(i).getPlane().getSeatMap();
+				  for (int k = 0; k < seatList.length; k++) {
+					  for (int j = 0; j < seatList[k].length; j++) {
+						  if(seatList[k][j].reservedFor()!= null) { 
+								  flightDetails[i][0] = ((char)(i+65) + Integer.toString(j));
+								  flightDetails[i][1] = (seatList[k][j].reservedFor().getUsername());
+					  			}
+					  		}
+			  
+			  			}
+			  }
+
+		  }
+		  return flightDetails;
 		
 	}
 

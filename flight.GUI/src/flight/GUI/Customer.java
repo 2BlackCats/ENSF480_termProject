@@ -73,7 +73,7 @@ public class Customer extends JPanel{
 		add(btnNewButton_1, gbc_btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
-				main.setContentPane(new BookNew(main,user));
+				main.setContentPane(new BookNew(main,user,al));
 				main.revalidate();
 			}
 		});
