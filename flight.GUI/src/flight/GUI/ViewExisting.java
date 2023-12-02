@@ -51,12 +51,12 @@ public class ViewExisting extends JPanel {
 		this.user = user;
 		setLayout(null);
 		
-		JButton returnButton = new JButton("Return");
-		returnButton.setBounds(6, 126, 342, 29);
+		JButton returnButton = new JButton("Back");
+		returnButton.setBounds(6, 126, 145, 29);
 		add(returnButton);
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent E) {
-				main.setContentPane(new Login(main, al));
+				main.setContentPane(new Customer(main, user, al));
 				main.revalidate();
 			}
 		});
@@ -66,6 +66,16 @@ public class ViewExisting extends JPanel {
 		table = new JTable(flightDetails,Titles);
 		table.setBounds(6, 17, 396, 97);
 		add(table);
+		
+		JButton btnNewButton = new JButton("Log out");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.setContentPane(new Login(main, al));
+				main.revalidate();
+			}
+		});
+		btnNewButton.setBounds(6, 167, 145, 29);
+		add(btnNewButton);
 		
 		
 		

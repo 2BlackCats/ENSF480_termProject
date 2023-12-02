@@ -165,7 +165,7 @@ public class Payment extends JPanel{
 			add(lblNewLabel_2);
 			
 			
-			JButton btnNewButton_1 = new JButton("Confirm");
+			JButton btnNewButton_1 = new JButton("Pay");
 			btnNewButton_1.addActionListener(new ActionListener() {
 			 	public void actionPerformed(ActionEvent e) {
 			 	String cardNumber = textField_1.getText();
@@ -175,20 +175,20 @@ public class Payment extends JPanel{
 					main.setContentPane(new Payment2(main ,user, al));
 					main.revalidate();
 			 	}
-
 			 	}			 
 			 });
 			btnNewButton_1.setBounds(6, 242, 117, 29);
 			add(btnNewButton_1);
-		 
-
-		
-		 
-
-		 
-		 
-	
-		 
+			
+			JButton btnNewButton_2 = new JButton("Sign out");
+			btnNewButton_2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent E) {
+					main.setContentPane(new Login(main, al));				
+					main.revalidate();
+				}
+				});
+			btnNewButton_2.setBounds(121, 242, 117, 29);
+			add(btnNewButton_2);
 		 	
 	}
 		

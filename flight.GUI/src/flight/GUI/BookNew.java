@@ -79,13 +79,7 @@ public class BookNew extends JPanel {
 		JButton btnNewButton = new JButton("Search Flights");
 		btnNewButton.setBounds(314, 53, 129, 25);
 		add(btnNewButton);
-		
-		//String[][] listFlight= flightArrayToString(Airline.getAirline().getListOfFlights());
-	
-		//JTable display = new JTable();
-	//	display.setBounds(22, 6, 223, 273);
-//		add(display);
-//	
+
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(314, 79, 130, 35);
@@ -96,7 +90,13 @@ public class BookNew extends JPanel {
 		btnNewButton1.setBounds(314, 126, 130, 25);
 		add(btnNewButton1);
 		
-		btnNewButton_1 = new JButton("New button");
+		btnNewButton_1 = new JButton("Sign out");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.setContentPane(new Login(main, al));
+				main.revalidate();
+			}
+		});
 		btnNewButton_1.setBounds(314, 163, 130, 25);
 		add(btnNewButton_1);
 		

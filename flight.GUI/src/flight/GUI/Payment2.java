@@ -44,7 +44,6 @@ public class Payment2 extends JPanel{
 			public void actionPerformed(ActionEvent E) {
 				main.setContentPane(new Customer(main, user, al));
 				main.revalidate();
-			
 			}
 			
 			});
