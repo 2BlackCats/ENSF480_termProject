@@ -102,7 +102,7 @@ public class ReadDB {
 
 			for(int i =0; i < filledAirline().getListOfAircrafts().size(); i++){
 				if (filledAirline().getListOfAircrafts().get(i).getID() == results.getInt("Aircraft_ID")) {
-					filledAirline().addFlight(results.getInt("ID"),results.getString("Destination"), results.getTimestamp("Time").toLocalDateTime(), Airline.getAirline().getListOfAircrafts().get(i));
+					filledAirline().addFlight(results.getInt("ID"),results.getString("Destination"), results.getTimestamp("Time").toLocalDateTime(), results.getInt("Aircraft_ID"));
 					break;
 				}
 			}
