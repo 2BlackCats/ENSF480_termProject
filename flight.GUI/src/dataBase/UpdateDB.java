@@ -64,7 +64,7 @@ public class UpdateDB {
 		st.executeUpdate(update);
 
 		for (int i =0; i < al.getListOfUsers().size(); i++){
-			String query = "insert into login (Username, Password, Email, Type)";
+			String query = "insert into air_travel.login (Username, Password, Email, Type)";
 			PreparedStatement ps = dbConnect.prepareStatement(query);
 			ps.setString(1, al.getListOfUsers().get(i).getUsername());
 			ps.setString(2, al.getListOfUsers().get(i).getPassword());
@@ -81,7 +81,7 @@ public class UpdateDB {
 		st.executeUpdate(update);
 
 		for (int i =0; i < al.getListOfFlights().size(); i++){
-			String query = "insert into flight (ID, Destination, Date)";
+			String query = "insert into air_travel.flight (ID, Destination, Date)";
 			PreparedStatement ps = dbConnect.prepareStatement(query);
 			ps.setInt(1, al.getListOfFlights().get(i).getID());
 			ps.setString(2, al.getListOfFlights().get(i).getDestination());
@@ -98,7 +98,7 @@ public class UpdateDB {
 		st.executeUpdate(update);
 
 		for (int i =0; i < al.getListOfAircrafts().size(); i++){
-			String query = "insert into Aircrafts (ID, size)";
+			String query = "insert into air_travel.Aircrafts (ID, size)";
 			PreparedStatement ps = dbConnect.prepareStatement(query);
 			ps.setInt(1, al.getListOfAircrafts().get(i).getID());
 			ps.setString(2, al.getListOfAircrafts().get(i).getSize());
@@ -117,7 +117,7 @@ public class UpdateDB {
 					for (Seat curSeat: seatRow) {
 						if (curSeat.reservedSeat()) {
 							String seatPassengerName = curSeat.reservedFor().getUsername();
-							String update = "UPDATE Seats SET Passenger_Name = '" + seatPassengerName + "' WHERE Aircraft_ID = " + al.getListOfAircrafts().get(i).getID();
+							String update = "UPDATE air_travel.Seats SET Passenger_Name = '" + seatPassengerName + "' WHERE Aircraft_ID = " + al.getListOfAircrafts().get(i).getID();
 							Statement st= dbConnect.createStatement();
 							st.executeUpdate(update);
 						}
